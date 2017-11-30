@@ -23,9 +23,14 @@ from Authentication Module to the *MainPage* in the MainModule. Usually the code
 await _navigationService.NavigateAsync("MainPage"); 
 ```
 
-The problem with this code is AuthenticationModule will have a code about where to go next.  
+The problem with this code is AuthenticationModule will have a code about where to go next, and that next can be in a module that is not loaded. 
 
-So the solution here is that instead of the module says where to go next after something happening, the module says that the event happened 
+
+So the solution here is that instead of the module says where to go next after something happening, the module says that the event happened like the following: 
+```csharp
+await _eventAggregator.GetEvent<SignedInEvent>.Publish(); 
+```
+
 and it is up to the ```EventHandlerService``` to decide where to go next.   
 
 ### Hints Learned 

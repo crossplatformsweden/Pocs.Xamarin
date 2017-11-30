@@ -28,7 +28,7 @@ The problem with this code is AuthenticationModule will have a code about where 
 
 So the solution here is that instead of the module says where to go next after something happening, the module says that the event happened like the following: 
 ```csharp
-await _eventAggregator.GetEvent<SignedInEvent>.Publish(); 
+ _eventAggregator.GetEvent<SignedInEvent>.Publish(); 
 ```
 
 and it is up to the ```EventHandlerService``` to decide where to go next.   

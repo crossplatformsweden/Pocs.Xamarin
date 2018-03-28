@@ -1,16 +1,18 @@
-﻿using DryIoc;
-using Prism.DryIoc;
-using Prism.Modularity;
-using SignIn;
-using SignIn.Views;
-using SignOut;
-using Xamarin.Forms;
+﻿using Prism;
+using Prism.Ioc;
 using Xamarin.Forms.Xaml;
+using Prism.Unity;
+using Prism.Modularity;
+using Authentication;
+using Authentication.Views;
+using Main;
+using Xamarin.Forms;
+using Prism.Navigation;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace Modularity
 {
-    public partial class App 
+    public partial class App : PrismApplication
     {
         /* 
          * The Xamarin Forms XAML Previewer in Visual Studio uses System.Activator.CreateInstance.
@@ -19,26 +21,39 @@ namespace Modularity
          */
         public App() : this(null) { }
 
+        public INavigationService Navigation => NavigationService; 
         public App(IPlatformInitializer initializer) : base(initializer) { }
 
         protected override async void OnInitialized()
         {
             InitializeComponent();
 
-            await NavigationService.NavigateAsync(nameof(Page1));
+
+            Container.Resolve<IWorkFlowService>().Init(this);
+            await NavigationService.NavigateAsync( $"NavigationPage/{nameof(SignInPage)}");
+
         }
 
-        protected override void RegisterTypes()
+    
+        protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<Page1>();
+
+            //var workflowService = new WorkFlowService(Container.Resolve<IEventAggregator>(), Container.Resolve<INavigationService>());
+            //workflowService.Init(); 
+            containerRegistry.Register<IWorkFlowService, WorkFlowService>();
+            containerRegistry.RegisterForNavigation<NavigationPage>();            
         }
 
-        protected override void ConfigureModuleCatalog()
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-           // ModuleCatalog.AddModule(new ModuleInfo(nameof(SignInModule), typeof(SignInModule)));
+            base.ConfigureModuleCatalog(moduleCatalog);
+            moduleCatalog.AddModule<AuthenticationModule>();
+            moduleCatalog.AddModule<MainModule>();
+        }
 
-           // ModuleCatalog.AddModule(new ModuleInfo(nameof(SignOutModule), typeof(SignOutModule)));
+        protected override void OnStart()
+        {
+            base.OnStart();
         }
     }
 }

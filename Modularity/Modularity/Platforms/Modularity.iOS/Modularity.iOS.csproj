@@ -193,8 +193,8 @@
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Modularity\Modularity.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+    <ProjectReference Include="..\..\Modularity\Modularity.csproj">
+      <Project>{d1fe1e00-9ed6-4828-b639-82674aa03128}</Project>
       <Name>Modularity</Name>
     </ProjectReference>
   </ItemGroup>

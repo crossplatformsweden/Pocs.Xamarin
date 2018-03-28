@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using Main.Views;
+﻿using Main.Views;
 using Modularity.Util.Events;
 using Prism.Events;
 using Prism.Navigation;

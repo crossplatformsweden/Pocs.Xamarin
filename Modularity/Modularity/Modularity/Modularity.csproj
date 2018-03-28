@@ -7,8 +7,8 @@
     <PackageReference Include="Prism.Unity.Forms" Version="7.0.0.396" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Authentication\Authentication.csproj" />
-    <ProjectReference Include="..\..\Main\Main.csproj" />
-    <ProjectReference Include="..\..\Modularity.Util\Modularity.Util.csproj" />
+    <ProjectReference Include="..\Modularity.Util\Modularity.Util.csproj" />
+    <ProjectReference Include="..\Modules\Authentication\Authentication.csproj" />
+    <ProjectReference Include="..\Modules\Main\Main.csproj" />
   </ItemGroup>
 </Project>
